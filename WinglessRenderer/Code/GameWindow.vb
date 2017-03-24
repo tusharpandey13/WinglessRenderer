@@ -32,6 +32,7 @@ Friend NotInheritable Class GameWindow
 
         objects.Add(New Model(New Rectangle(150, 50), Color.Red))
         objects.Add(New Model(New Rectangle(450, 200, 56, 32), Color.BlanchedAlmond))
+        objects.Add(New Model(New Line(200, 10, 700, 500), Color.White))
 
         Buffer.Add(objects)
 

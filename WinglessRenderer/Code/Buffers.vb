@@ -32,7 +32,6 @@ Class Buffers : Implements IDisposable
     End Sub
     Public Sub Draw()
         GL.DrawElements(PrimitiveType.Triangles, ibo.n, DrawElementsType.UnsignedInt, 0)
-        'GL.DrawArrays(PrimitiveType.Triangles, 0, ibo.n)
     End Sub
 
     Public Sub Dispose() Implements IDisposable.Dispose

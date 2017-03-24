@@ -39,3 +39,11 @@ Class Rectangle : Inherits Polygon
         Me.New(0, 0, w, h)
     End Sub
 End Class
+
+Class Line : Inherits Polygon
+    Sub New()
+    End Sub
+    Sub New(x1!, y1!, x2!, y2!, Optional w! = 1)
+        MyBase.New({New Point(x1, y1), New Point(x1 + w, y1 + 0), New Point(x2 + w, y2 + 0), New Point(x2, y2)})
+    End Sub
+End Class
