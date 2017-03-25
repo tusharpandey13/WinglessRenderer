@@ -1,7 +1,4 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel
-Imports OpenTK.Graphics.OpenGL
+﻿Imports OpenTK.Graphics.OpenGL
 
 Class Buffers : Implements IDisposable
     Dim vbo As GenericBuffer(Of Vertex)
@@ -19,6 +16,14 @@ Class Buffers : Implements IDisposable
             ibo.Add(m.I)
             vbo.Add(m.V)
         Next
+        Dim t As Boolean = True
+        While t
+            If vbo.Data.Count Mod 3 <> 0 Then
+                vbo.Data.Add(vbo.Data.Item(vbo.Data.Count - 1))
+            Else
+                t = False
+            End If
+        End While
     End Sub
     Public Sub Bind(Optional n% = -1)
         GL.EnableClientState(ArrayCap.VertexArray)
@@ -45,7 +50,7 @@ Class GenericBuffer(Of type As Structure) : Implements IDisposable
     Dim bt As BufferTarget
     Dim bu As BufferUsageHint
     Public handle%
-    Protected Data As List(Of type)
+    Public Data As List(Of type)
     Public ReadOnly Property n%
         Get
             Return Data.Count

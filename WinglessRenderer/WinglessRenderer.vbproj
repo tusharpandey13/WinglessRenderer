@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Code\Buffers.vb" />
     <Compile Include="Code\Color.vb" />
+    <Compile Include="Code\Curves.vb" />
     <Compile Include="Code\GameWindow.vb" />
     <Compile Include="Code\helpers.vb" />
     <Compile Include="Code\Matrix4Uniform.vb" />

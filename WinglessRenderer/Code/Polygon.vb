@@ -14,6 +14,19 @@ Class Polygon
         P.Clear()
         P.AddRange(Points)
         SetIndices()
+        For Each p As Point In Points
+            Console.WriteLine(p.ToString())
+        Next
+    End Sub
+    Sub New(Polygon As Polygon)
+        Me.New()
+        Add(Polygon)
+    End Sub
+    Public Sub Add(Polygon As Polygon)
+        For j = 0 To Polygon.I.Count - 1
+            I.Add(P.Count + Polygon.I.Item(j))
+        Next
+        P.AddRange(Polygon.P)
     End Sub
     Protected Sub SetIndices()
         For j = 0 To P.Count - 3
@@ -45,5 +58,13 @@ Class Line : Inherits Polygon
     End Sub
     Sub New(x1!, y1!, x2!, y2!, Optional w! = 1)
         MyBase.New({New Point(x1, y1), New Point(x1 + w, y1 + 0), New Point(x2 + w, y2 + 0), New Point(x2, y2)})
+    End Sub
+End Class
+
+Class Dot : Inherits Rectangle
+    Sub New()
+    End Sub
+    Sub New(x!, y!)
+        MyBase.New(x, y, 1, 1)
     End Sub
 End Class
