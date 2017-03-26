@@ -1,6 +1,3 @@
-Imports Microsoft.VisualBasic
-Imports System
-Imports System.Collections.Generic
 Imports OpenTK
 Imports OpenTK.Graphics
 Imports OpenTK.Graphics.OpenGL
@@ -16,7 +13,7 @@ Friend NotInheritable Class GameWindow
 
 
     Public Sub New(w%, h%)
-        MyBase.New(w, h, New GraphicsMode(32, 24, 0, 4), "OpenTK Intro", GameWindowFlags.Default, DisplayDevice.Default, 3, 3, GraphicsContextFlags.ForwardCompatible)
+        MyBase.New(w, h, New GraphicsMode(32, 24, 0, 4), "OpenTK Intro", GameWindowFlags.Default, DisplayDevice.Default, 4, 3, GraphicsContextFlags.ForwardCompatible)
         Width = w : Height = h
         Console.WriteLine("Using OpenGL version " & GL.GetString(StringName.Version))
     End Sub
@@ -32,8 +29,8 @@ Friend NotInheritable Class GameWindow
 
         objects.Add(New Model(New Rectangle(150, 50), Color.Red))
         objects.Add(New Model(New Rectangle(450, 200, 56, 32), Color.BlanchedAlmond))
-        'objects.Add(New Model(New Line(200, 10, 700, 500), Color.White))
-        objects.Add(New Model(New Circle(100, 300, 50, 50, 50), Color.Red))
+        objects.Add(New Model(New Line(250, 10, 300, 50, 5), Color.White))
+        objects.Add(New Model(New Ellipse(250, 300, 200, 200), Color.Red))
 
 
         Buffer.Add(objects)

@@ -1,7 +1,6 @@
-﻿Imports System.Collections.Generic
-Imports OpenTK
-
-Class Polygon
+﻿Imports OpenTK
+Imports System.Math
+Class Polygon : Implements IDisposable
     Public P As List(Of Point)
     Public I As List(Of UInteger)
 
@@ -40,6 +39,11 @@ Class Polygon
         Next
         P = t
     End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        P.Clear() : P = Nothing
+        I.Clear() : I = Nothing
+    End Sub
 End Class
 
 Class Rectangle : Inherits Polygon
@@ -57,7 +61,20 @@ Class Line : Inherits Polygon
     Sub New()
     End Sub
     Sub New(x1!, y1!, x2!, y2!, Optional w! = 1)
-        MyBase.New({New Point(x1, y1), New Point(x1 + w, y1 + 0), New Point(x2 + w, y2 + 0), New Point(x2, y2)})
+        Dim m = (y2 - y1) / (x2 - x1)
+        Dim t = Atan(m)
+        Dim wx!, wy!
+
+        If t >= 0 And t <= PI / 2 Then
+            wx = w * (sgn(x1 - x2)) * Abs(t) / PI * 2
+            wy = w * (-sgn(x1 - x2)) * ((PI / 2) - Abs(t)) / PI * 2
+        ElseIf t < 0 And t >= -PI / 2 Then
+            wx = w * (-sgn(x1 - x2)) * Abs(t) / PI * 2
+            wy = w * (-sgn(x1 - x2)) * ((PI / 2) - Abs(t)) / PI * 2
+        End If
+
+        P.AddRange({New Point(x1, y1), New Point(x1 + wx, y1 + wy), New Point(x2 + wx, y2 + wy), New Point(x2, y2)})
+        SetIndices()
     End Sub
 End Class
 

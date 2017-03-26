@@ -1,8 +1,13 @@
 ﻿Imports System
 
 Module Helpers
+    Public Function sgn(v#) As Integer
+        If v > 0 Then Return 1
+        If v < 0 Then Return -1
+        If v = 0 Then Return 0
+    End Function
     Public Function clamp#(V#, Min#, Max#)
-        Return Math.Min(Math.Max(V, Min), Max)
+        Return sgn(V) * Math.Min(Math.Max(Math.Abs(V), Min), Max)
     End Function
     Public Sub writesuccess(s$)
         Dim t As ConsoleColor = Console.ForegroundColor

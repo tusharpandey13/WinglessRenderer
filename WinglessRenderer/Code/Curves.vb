@@ -1,8 +1,11 @@
-﻿Class Circle : Inherits Polygon
+﻿Class Ellipse : Inherits Polygon
     Sub New()
         MyBase.New()
     End Sub
-    Sub New(cx!, cy!, rx!, ry!, n%)
+    Sub New(R As Rectangle, Optional n% = 360, Optional w! = 1)
+
+    End Sub
+    Sub New(cx!, cy!, rx!, ry!, Optional n% = 360, Optional w! = 1)
         Me.New()
         Dim s! = Math.Sin(Math.PI * 2 / n)
         Dim c! = Math.Cos(Math.PI * 2 / n)
@@ -19,11 +22,9 @@
             y = s * t + c * y
         Next
         For j = 0 To n - 2
-            'Add(New Polygon({New Point(cx, cy), New Point(tv(j, 0), tv(j, 1)), New Point(tv(j + 1, 0), tv(j + 1, 1))}))
-            Add(New Line(tv(j, 0), tv(j, 1), tv(j + 1, 0), tv(j + 1, 1)))
+            Add(New Line(tv(j, 0), tv(j, 1), tv(j + 1, 0), tv(j + 1, 1), w))
         Next
 
-        'Add(New Polygon({New Point(cx, cy), New Point(tv(0, 0), tv(0, 1)), New Point(tv(n - 1, 0), tv(n - 1, 1))}))
-        Add(New Line(tv(n - 1, 0), tv(n - 1, 1), tv(0, 0), tv(0, 1)))
+        Add(New Line(tv(n - 1, 0), tv(n - 1, 1), tv(0, 0), tv(0, 1), w))
     End Sub
 End Class
