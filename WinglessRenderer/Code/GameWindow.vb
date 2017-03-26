@@ -27,13 +27,11 @@ Friend NotInheritable Class GameWindow
         Buffer = New Buffers()
         objects = New List(Of Model)
 
-        objects.Add(New Model(New Rectangle(150, 50), Color.Red))
-        objects.Add(New Model(New Rectangle(450, 200, 56, 32), Color.BlanchedAlmond))
-        objects.Add(New Model(New Line(250, 10, 300, 50, 5), Color.White))
-        objects.Add(New Model(New Ellipse(250, 300, 200, 200), Color.Red))
+        Dim m As New Model
+        m.Add(New Ellipse(New Rectangle(100, 150, 700, 502), 1000, 2000), Color.Aqua)
 
 
-        Buffer.Add(objects)
+        Buffer.Add({m})
 
         shaderProgram = New shaderprogram(VertexShader, FragShader)
 
@@ -41,6 +39,13 @@ Friend NotInheritable Class GameWindow
 
         projectionMatrix = New Matrix4Uniform("projectionMatrix")
         projectionMatrix.Matrix = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, 0.01, 100) * Matrix4.CreateTranslation(New Vector3(0, 0, 1))
+
+
+        Buffer.Bind()
+        vertexArray.Bind()
+
+        Buffer.BufferData()
+
     End Sub
 
     Protected Overrides Sub OnUpdateFrame(ByVal e As FrameEventArgs)
@@ -53,19 +58,15 @@ Friend NotInheritable Class GameWindow
         shaderProgram.use()
         projectionMatrix.Set(shaderProgram)
 
-        Buffer.Bind()
-        vertexArray.Bind()
-
-        Buffer.BufferData()
 
 
         Buffer.Draw()
 
         ' reset state for potential further draw calls (optional, but good practice)
-        GL.BindVertexArray(0)
-        GL.BindBuffer(BufferTarget.ArrayBuffer, 0)
-        GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0)
-        GL.UseProgram(0)
+        'GL.BindVertexArray(0)
+        'GL.BindBuffer(BufferTarget.ArrayBuffer, 0)
+        'GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0)
+        'GL.UseProgram(0)
 
 
         ' swap backbuffer

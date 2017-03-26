@@ -47,13 +47,71 @@ Class Polygon : Implements IDisposable
 End Class
 
 Class Rectangle : Inherits Polygon
+
+#Region "Props"
+    Private _x!, _y!, _w!, _h!
+    Public Property X!
+        Get
+            Return _x
+        End Get
+        Set(value!)
+            _x = value
+            setpoints()
+        End Set
+    End Property
+    Public Property Y!
+        Get
+            Return _y
+        End Get
+        Set(value!)
+            _y = value
+            setpoints()
+        End Set
+    End Property
+    Public Property Width!
+        Get
+            Return _w
+        End Get
+        Set(value!)
+            _w = value
+            setpoints()
+        End Set
+    End Property
+    Public Property Height!
+        Get
+            Return _h
+        End Get
+        Set(value!)
+            _h = value
+            setpoints()
+        End Set
+    End Property
+#End Region
+
+#Region "Ctor"
     Sub New()
+        MyBase.New()
     End Sub
     Sub New(x!, y!, w!, h!)
-        MyBase.New({New Point(x, y), New Point(x + w, y), New Point(x + w, y + h), New Point(x, y + h)})
+        MyBase.New()
+        _x = x
+        _y = y
+        _w = w
+        _h = h
+        setpoints()
     End Sub
     Sub New(w!, h!)
         Me.New(0, 0, w, h)
+    End Sub
+    Sub New(R As System.Drawing.Rectangle)
+        Me.New(R.X, R.Y, R.Width, R.Height)
+    End Sub
+#End Region
+
+    Private Sub setpoints()
+        P.Clear()
+        P.AddRange({New Point(_x, _y), New Point(_x + _w, _y), New Point(_x + _w, _y + _h), New Point(_x, _y + _h)})
+        SetIndices()
     End Sub
 End Class
 

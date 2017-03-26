@@ -3,7 +3,8 @@
         MyBase.New()
     End Sub
     Sub New(R As Rectangle, Optional n% = 360, Optional w! = 1)
-
+        Me.New((R.X + R.Width) / 2, (R.Y + R.Height) / 2, R.Width / 2, R.Height / 2, n, w)
+        R.Dispose()
     End Sub
     Sub New(cx!, cy!, rx!, ry!, Optional n% = 360, Optional w! = 1)
         Me.New()
