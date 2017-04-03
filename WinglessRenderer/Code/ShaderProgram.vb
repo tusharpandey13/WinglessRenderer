@@ -162,10 +162,11 @@ void main()
 
 in vec4 fColor;
 out vec4 fragColor;
+uniform float sat;
 
 void main()
 {
-    fragColor = fColor;
+    fragColor = vec4(fColor.xyz,sat*fColor.w);
 }",
                                                     ShaderType.FragmentShader)
 End Module

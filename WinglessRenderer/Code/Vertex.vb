@@ -65,12 +65,14 @@ Class Model
             For l = c.Length To Polygon.P.Count - 1
                 tc.Add(c(c.Length - 1))
             Next
+        Else
+            tc.AddRange(c)
         End If
 
 
         If AntiAliased Then
             Dim w! = 1
-            Dim a As Byte = 255
+            Dim a As Byte = 50
             For j = 0 To Polygon.P.Count - 2
                 _add(New Line(Polygon.P(j).X, Polygon.P(j).Y, Polygon.P(j + 1).X, Polygon.P(j + 1).Y, w, 1), {Col(a, tc(j)), Col(0, tc(j)), Col(0, tc(j + 1)), Col(a, tc(j + 1))})
             Next

@@ -348,6 +348,13 @@ Public Structure Color
         m_b = c.B
         m_a = c.A
     End Sub
+    Public Sub New(n As Byte)
+        Me.New(255, n)
+    End Sub
+    Public Sub New(a As Byte, n As Byte)
+        m_r = n : m_g = n : m_b = n
+        m_a = a
+    End Sub
 #End Region
 
 #Region "Static Methods"

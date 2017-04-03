@@ -9,7 +9,7 @@ Friend NotInheritable Class GameWindow
     Private shaderProgram As shaderprogram
     Private vertexArray As VertexArray(Of Vertex)
     Private projectionMatrix As Matrix4Uniform
-
+    Friend sat As Uniform1
 
     Public Sub New(w%, h%)
         MyBase.New(w, h, New GraphicsMode(32, 24, 0, 4), "OpenTK Intro", GameWindowFlags.Default, DisplayDevice.Default, 4, 3, GraphicsContextFlags.ForwardCompatible)
@@ -26,10 +26,7 @@ Friend NotInheritable Class GameWindow
         Buffer = New Buffers()
 
         Dim m As New Model With {.AntiAliased = 1}
-        m.Add(New Line(100, 100, 500, 150), Color.Blue)
-        m.Add(New Ellipse(400, 400, 100, 100,, 50), Color.YellowGreen)
-        m.Add(New Polygon({New Point(0, 0), New Point(100, 500), New Point(200, 200)}), {Col(51), Color.LavenderBlush, Color.Indigo})
-
+        m.Add(New CubicBezier(New Point(40, 200), New Point(40, 100 + 4 / 3 * Math.Tan(Math.PI / 2000)), New Point(140 - 4 / 3 * Math.Tan(Math.PI / 2000), 200), New Point(140, 100)), Color.Black)
         Buffer.Add({m})
 
         shaderProgram = New shaderprogram(VertexShader, FragShader)
@@ -39,6 +36,8 @@ Friend NotInheritable Class GameWindow
         projectionMatrix = New Matrix4Uniform("projectionMatrix")
         projectionMatrix.Matrix = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, 0.01, 100) * Matrix4.CreateTranslation(New Vector3(0, 0, 1))
 
+        sat = New Uniform1("sat")
+        sat.Value = 1.0!
 
         Buffer.Bind()
         vertexArray.Bind()
@@ -51,7 +50,7 @@ Friend NotInheritable Class GameWindow
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
-        GL.ClearColor(Color4.Black)
+        GL.ClearColor(Color4.White)
         GL.Clear(ClearBufferMask.ColorBufferBit Or ClearBufferMask.DepthBufferBit)
         'GL.Enable(EnableCap.DepthTest) don't enable
         GL.Enable(EnableCap.Blend)
@@ -61,12 +60,12 @@ Friend NotInheritable Class GameWindow
 
         shaderProgram.use()
         projectionMatrix.Set(shaderProgram)
-
+        sat.Set(shaderProgram)
 
 
         Buffer.Draw()
 
-        '''Reset state For potential further draw calls (Optional, but good practice)
+        ''Reset state For potential further draw calls (Optional, but good practice)
         'GL.BindVertexArray(0)
         'GL.BindBuffer(BufferTarget.ArrayBuffer, 0)
         'GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0)

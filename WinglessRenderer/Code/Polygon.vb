@@ -44,6 +44,12 @@ Class Polygon : Implements IDisposable
         P.Clear() : P = Nothing
         I.Clear() : I = Nothing
     End Sub
+    Protected Sub GenLines(pts As List(Of Point), w!, Optional joinends As Boolean = True)
+        For ii = 0 To pts.Count - 2
+            Add(New Line(pts(ii), pts(ii + 1), w))
+        Next
+        If joinends Then Add(New Line(pts(pts.Count - 1), pts(0), w))
+    End Sub
 End Class
 
 Class Rectangle : Inherits Polygon
@@ -138,6 +144,7 @@ Class Line : Inherits Polygon
         Me.New(pt1.X, pt1.Y, pt2.X, pt2.Y, w, Onesided)
     End Sub
     Sub New(x1!, y1!, x2!, y2!, Optional w! = 1, Optional Onesided As Boolean = False)
+
         Dim m = (y2 - y1) / (x2 - x1)
         Dim t = Atan(m)
         Dim wx!, wy!

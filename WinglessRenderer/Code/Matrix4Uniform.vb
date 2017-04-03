@@ -21,7 +21,7 @@ Friend NotInheritable Class Matrix4Uniform
         Me.name = name
     End Sub
 
-    Public Sub [Set](ByVal program As ShaderProgram)
+    Public Sub [Set](ByVal program As shaderprogram)
         ' get uniform location
         Dim i = program.GetUniformLocation(Me.name)
 
@@ -30,3 +30,28 @@ Friend NotInheritable Class Matrix4Uniform
     End Sub
 End Class
 
+Friend NotInheritable Class Uniform1
+    Private ReadOnly name As String
+    Private _value!
+
+    Public Property Value!
+        Get
+            Return Me._value
+        End Get
+        Set(value!)
+            Me._value = value
+        End Set
+    End Property
+
+    Public Sub New(ByVal name As String)
+        Me.name = name
+    End Sub
+
+    Public Sub [Set](ByVal program As shaderprogram)
+        ' get uniform location
+        Dim i = program.GetUniformLocation(Me.name)
+
+        ' set uniform value
+        GL.Uniform1(i, Me._value)
+    End Sub
+End Class

@@ -13,19 +13,46 @@
         Dim t!
         Dim x! = 1
         Dim y! = 0
-        Dim tv(n - 1, 2) As Single
+        Dim tv As New List(Of Point)
         For ii = 0 To n - 1
-            tv(ii, 0) = x * rx + cx
-            tv(ii, 1) = y * ry + cy
-
+            tv.Add(New Point(x * rx + cx, y * ry + cy))
             t = x
             x = c * x - s * y
             y = s * t + c * y
         Next
-        For j = 0 To n - 2
-            Add(New Line(tv(j, 0), tv(j, 1), tv(j + 1, 0), tv(j + 1, 1), w))
-        Next
+        GenLines(tv, w)
+    End Sub
+End Class
 
-        Add(New Line(tv(n - 1, 0), tv(n - 1, 1), tv(0, 0), tv(0, 1), w))
+
+Class CubicBezier : Inherits Polygon
+    Dim A, B, C, D As Point
+    Sub New()
+    End Sub
+    Sub New(BeginPt As Point, B As Point, C As Point, EndPt As Point, Optional w! = 1.0!)
+        A = BeginPt
+        Me.B = B
+        Me.C = C
+        D = EndPt
+        calc(w)
+    End Sub
+    Private Function lerp(a As Point, b As Point, t!) As Point
+        Return New Point(a.X + (b.X - a.X) * t, a.Y + (b.Y - a.Y) * t)
+    End Function
+    Private Function bezier(a As Point, b As Point, c As Point, d As Point, t!)
+        Dim ab, bc, cd, abbc, bccd As Point
+        ab = lerp(a, b, t)
+        bc = lerp(b, c, t)
+        cd = lerp(c, d, t)
+        abbc = lerp(ab, bc, t)
+        bccd = lerp(bc, cd, t)
+        Return lerp(abbc, bccd, t)
+    End Function
+    Sub calc(w!)
+        Dim tp As New List(Of Point)
+        For j = 0 To 1000
+            tp.Add(bezier(A, B, C, D, j / 1000))
+        Next
+        GenLines(tp, w, False)
     End Sub
 End Class
