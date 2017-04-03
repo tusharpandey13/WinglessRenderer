@@ -342,7 +342,12 @@ Public Structure Color
         Me.m_b = color__1.B
         Me.m_a = newAlpha
     End Sub
-
+    Public Sub New(c As Color4)
+        m_r = c.R
+        m_g = c.G
+        m_b = c.B
+        m_a = c.A
+    End Sub
 #End Region
 
 #Region "Static Methods"
@@ -731,7 +736,7 @@ End Structure
 Public Module ColorHelper
 #Region "Color"
     Friend Function Col(a As Byte, r As Byte, g As Byte, b As Byte, sat!) As Color
-        Return New Color(CByte(clamp(r * a, 0, 255)), CByte(clamp(g * a, 0, 255)), CByte(clamp(b * a, 0, 255)), a)
+        Return New Color(CByte(clamp(r * sat, 0, 255)), CByte(clamp(g * sat, 0, 255)), CByte(clamp(b * sat, 0, 255)), a)
     End Function
     Friend Function Col(a As Byte, r As Byte, g As Byte, b As Byte) As Color
         Return Col(a, r, g, b, 1)

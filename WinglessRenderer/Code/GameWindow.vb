@@ -9,7 +9,6 @@ Friend NotInheritable Class GameWindow
     Private shaderProgram As shaderprogram
     Private vertexArray As VertexArray(Of Vertex)
     Private projectionMatrix As Matrix4Uniform
-    Private objects As List(Of Model)
 
 
     Public Sub New(w%, h%)
@@ -25,11 +24,11 @@ Friend NotInheritable Class GameWindow
     Protected Overrides Sub OnLoad(ByVal e As EventArgs)
 
         Buffer = New Buffers()
-        objects = New List(Of Model)
 
-        Dim m As New Model
-        m.Add(New Ellipse(New Rectangle(100, 150, 700, 502), 1000, 2000), Color.Aqua)
-
+        Dim m As New Model With {.AntiAliased = 1}
+        m.Add(New Line(100, 100, 500, 150), Color.Blue)
+        m.Add(New Ellipse(400, 400, 100, 100,, 50), Color.YellowGreen)
+        m.Add(New Polygon({New Point(0, 0), New Point(100, 500), New Point(200, 200)}), {Col(51), Color.LavenderBlush, Color.Indigo})
 
         Buffer.Add({m})
 
@@ -52,8 +51,13 @@ Friend NotInheritable Class GameWindow
     End Sub
 
     Protected Overrides Sub OnRenderFrame(ByVal e As FrameEventArgs)
-        GL.ClearColor(Color4.Purple)
+        GL.ClearColor(Color4.Black)
         GL.Clear(ClearBufferMask.ColorBufferBit Or ClearBufferMask.DepthBufferBit)
+        'GL.Enable(EnableCap.DepthTest) don't enable
+        GL.Enable(EnableCap.Blend)
+        GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha)
+
+
 
         shaderProgram.use()
         projectionMatrix.Set(shaderProgram)
@@ -62,7 +66,7 @@ Friend NotInheritable Class GameWindow
 
         Buffer.Draw()
 
-        ' reset state for potential further draw calls (optional, but good practice)
+        '''Reset state For potential further draw calls (Optional, but good practice)
         'GL.BindVertexArray(0)
         'GL.BindBuffer(BufferTarget.ArrayBuffer, 0)
         'GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0)
