@@ -1,4 +1,5 @@
-﻿Class Ellipse : Inherits Polygon
+﻿Imports System.Math
+Class Ellipse : Inherits Polygon
     Sub New()
         MyBase.New()
     End Sub
@@ -8,17 +9,9 @@
     End Sub
     Sub New(cx!, cy!, rx!, ry!, Optional n% = 360, Optional w! = 1)
         Me.New()
-        Dim s! = Math.Sin(Math.PI * 2 / n)
-        Dim c! = Math.Cos(Math.PI * 2 / n)
-        Dim t!
-        Dim x! = 1
-        Dim y! = 0
         Dim tv As New List(Of Point)
-        For ii = 0 To n - 1
-            tv.Add(New Point(x * rx + cx, y * ry + cy))
-            t = x
-            x = c * x - s * y
-            y = s * t + c * y
+        For i As Integer = 0 To n
+            tv.Add(New Point(cx + (rx * Cos(i * 2 * PI / n)), cy + (ry * Sin(i * PI * 2 / n))))
         Next
         GenLines(tv, w)
     End Sub

@@ -12,7 +12,7 @@ Friend NotInheritable Class GameWindow
     Friend sat As Uniform1
 
     Public Sub New(w%, h%)
-        MyBase.New(w, h, New GraphicsMode(32, 24, 0, 4), "OpenTK Intro", GameWindowFlags.Default, DisplayDevice.Default, 4, 3, GraphicsContextFlags.ForwardCompatible)
+        MyBase.New(w, h, New GraphicsMode(32, 24, 0, 1), "OpenTK Intro", GameWindowFlags.Default, DisplayDevice.Default, 4, 3, GraphicsContextFlags.ForwardCompatible)
         Width = w : Height = h
         Console.WriteLine("Using OpenGL version " & GL.GetString(StringName.Version))
     End Sub
@@ -25,8 +25,9 @@ Friend NotInheritable Class GameWindow
 
         Buffer = New Buffers()
 
-        Dim m As New Model With {.AntiAliased = 1}
+        Dim m As New Model With {.AntiAliased = 0}
         m.Add(New CubicBezier(New Point(40, 200), New Point(40, 100 + 4 / 3 * Math.Tan(Math.PI / 2000)), New Point(140 - 4 / 3 * Math.Tan(Math.PI / 2000), 200), New Point(140, 100)), Color.Black)
+        m.Add(New Ellipse(400, 300, 100, 100), Color.Black)
         Buffer.Add({m})
 
         shaderProgram = New shaderprogram(VertexShader, FragShader)
