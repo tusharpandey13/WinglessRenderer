@@ -44,11 +44,11 @@ Class Polygon : Implements IDisposable
         P.Clear() : P = Nothing
         I.Clear() : I = Nothing
     End Sub
-    Protected Sub GenLines(pts As List(Of Point), w!, Optional joinends As Boolean = True)
+    Protected Sub GenLines(pts As List(Of Point), w!, Optional joinends As Boolean = True, Optional onesided As Boolean = False)
         For ii = 0 To pts.Count - 2
             Add(New Line(pts(ii), pts(ii + 1), w))
         Next
-        If joinends Then Add(New Line(pts(pts.Count - 1), pts(0), w))
+        If joinends Then Add(New Line(pts(pts.Count - 1), pts(0), w, onesided))
     End Sub
 End Class
 
@@ -137,37 +137,6 @@ Class Rectangle : Inherits Polygon
     End Sub
 End Class
 
-Class Line : Inherits Polygon
-    Sub New()
-    End Sub
-    Sub New(pt1 As Point, pt2 As Point, Optional w! = 1, Optional Onesided As Boolean = False)
-        Me.New(pt1.X, pt1.Y, pt2.X, pt2.Y, w, Onesided)
-    End Sub
-    Sub New(x1!, y1!, x2!, y2!, Optional w! = 1, Optional Onesided As Boolean = False)
-
-        Dim m = (y2 - y1) / (x2 - x1)
-        Dim t = Atan(m)
-        Dim wx!, wy!
-
-        If t >= 0 And t <= PI / 2 Then
-            wx = w * (sgn(x1 - x2)) * Abs(Cos(t + PI / 2))
-            wy = w * (-sgn(x1 - x2)) * Abs(Sin(t + PI / 2))
-        ElseIf t < 0 And t >= -PI / 2 Then
-            wx = w * (-sgn(x1 - x2)) * Abs(Cos(t + PI / 2))
-            wy = w * (-sgn(x1 - x2)) * Abs(Sin(t + PI / 2))
-        End If
-
-        'wx = w * Cos(t + PI / 2)
-        'wy = w * Sin(t + PI / 2)
-
-        If Not Onesided Then
-            P.AddRange({New Point(x1 - wx / 2, y1 - wy / 2), New Point(x1 + wx / 2, y1 + wy / 2), New Point(x2 + wx / 2, y2 + wy / 2), New Point(x2 - wx / 2, y2 - wy / 2)})
-        Else
-            P.AddRange({New Point(x1, y1), New Point(x1 + wx, y1 + wy), New Point(x2 + wx, y2 + wy), New Point(x2, y2)})
-        End If
-        SetIndices()
-    End Sub
-End Class
 
 Class Dot : Inherits Rectangle
     Sub New()
