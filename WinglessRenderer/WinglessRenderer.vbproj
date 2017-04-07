@@ -80,6 +80,7 @@
     <Compile Include="Code\helpers.vb" />
     <Compile Include="Code\Line.vb" />
     <Compile Include="Code\Matrix4Uniform.vb" />
+    <Compile Include="Code\Model.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

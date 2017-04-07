@@ -11,18 +11,26 @@ Class Line : Inherits Polygon
         Dim t = Atan(m)
         Dim wx!, wy!
 
-        wx = Abs((w * Sin(t)) ^ 2)
-        wy = Abs((w * Cos(t)) ^ 2)
 
+        wx = Abs((w * Sin(t) ^ 2))
+        wy = Abs((w * Cos(t) ^ 2))
 
         wx *= sgn(t) * (sgn(x1 - x2))
-        wy *= (-sgn(x1 - x2))
+        wy *= -sgn(x1 - x2)
+
+
 
 
         If Not Onesided Then
-            P.AddRange({New Point(x1 - wx / 2, y1 - wy / 2), New Point(x1 + wx / 2, y1 + wy / 2), New Point(x2 + wx / 2, y2 + wy / 2), New Point(x2 - wx / 2, y2 - wy / 2)})
+            P.AddRange({New Point(x1 - wx / 2, y1 - wy / 2),
+                       New Point(x1 + wx / 2, y1 + wy / 2),
+                       New Point(x2 + wx / 2, y2 + wy / 2),
+                       New Point(x2 - wx / 2, y2 - wy / 2)})
         Else
-            P.AddRange({New Point(x1, y1), New Point(x1 + wx, y1 + wy), New Point(x2 + wx, y2 + wy), New Point(x2, y2)})
+            P.AddRange({New Point(x1, y1),
+                       New Point(x1 + wx, y1 + wy),
+                       New Point(x2 + wx, y2 + wy),
+                       New Point(x2, y2)})
         End If
         SetIndices()
     End Sub

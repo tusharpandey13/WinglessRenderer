@@ -13,7 +13,7 @@ Class Ellipse : Inherits Polygon
         For i As Integer = 0 To n
             tv.Add(New Point(cx + (rx * Cos(i * 2 * PI / n)), cy + (ry * Sin(i * PI * 2 / n))))
         Next
-        GenLines(tv, w,, )
+        GenLines(tv, w,, 0)
     End Sub
 End Class
 

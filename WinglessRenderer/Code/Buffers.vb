@@ -4,6 +4,7 @@ Class Buffers : Implements IDisposable
     Dim vbo As GenericBuffer(Of Vertex)
     Dim ibo As GenericBuffer(Of UInteger)
 
+
     Sub New()
         vbo = New GenericBuffer(Of Vertex)(BufferTarget.ArrayBuffer)
         ibo = New GenericBuffer(Of UInteger)(BufferTarget.ElementArrayBuffer)
@@ -28,6 +29,7 @@ Class Buffers : Implements IDisposable
     Public Sub Bind(Optional n% = -1)
         GL.EnableClientState(ArrayCap.VertexArray)
         vbo.Bind()
+        GL.EnableClientState(ArrayCap.IndexArray)
         GL.VertexPointer(3, VertexPointerType.Float, Vertex.Size, 0)
         ibo.Bind()
     End Sub
