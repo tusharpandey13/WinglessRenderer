@@ -32,13 +32,17 @@ Friend NotInheritable Class GameWindow
 
         shaderProgram = New shaderprogram(VertexShader, FragShader)
 
-        vertexArray = New VertexArray(Of Vertex)(Buffer, shaderProgram, New VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, Vertex.Size, 0), New VertexAttribute("vColor", 4, VertexAttribPointerType.Float, Vertex.Size, 12))
+        vertexArray = New VertexArray(Of Vertex)(Buffer, shaderProgram,
+                                                 New VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, Vertex.Size, 0),
+                                                 New VertexAttribute("vColor", 4, VertexAttribPointerType.Float, Vertex.Size, 12),
+                                                 New VertexAttribute("vTexCoord", 2, VertexAttribPointerType.Float, Vertex.Size, 28)
+                                                )
 
         projectionMatrix = New Matrix4Uniform("projectionMatrix")
-        projectionMatrix.Matrix = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, 0.01, 100) * Matrix4.CreateTranslation(New Vector3(0, 0, 1))
+        projectionMatrix.Data = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, 0.01, 100) * Matrix4.CreateTranslation(New Vector3(0, 0, 1))
 
         sat = New Uniform1("sat")
-        sat.Value = 1.0!
+        sat.Data = 1.0!
 
         Buffer.Bind()
         vertexArray.Bind()

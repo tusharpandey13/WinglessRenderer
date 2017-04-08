@@ -1,6 +1,4 @@
-Imports System
 Imports OpenTK.Graphics.OpenGL
-Imports System.Collections.Generic
 Imports OpenTK.Graphics
 
 Class shaderprogram : Implements IDisposable
@@ -147,21 +145,30 @@ Module Shaders
 
 in  vec3 vPosition;
 in  vec4 vColor;
+//in  vec2 vTexCoord;
+
+
 out vec4 fColor;
+//out vec2 fTexCoord;
+
 uniform mat4 projectionMatrix;
 
 void main()
 {
     gl_Position = projectionMatrix * vec4(vPosition, 1.0); 
     fColor = vColor;
+//    fTexCoord = vTexCoord;
 }",
-                                                ShaderType.VertexShader)
+                                        ShaderType.VertexShader)
 
     Public FragShader As New Shader(
 "#version 330
 
 in vec4 fColor;
+//in vec2 fTexCoord;
+
 out vec4 fragColor;
+
 uniform float sat;
 
 void main()
