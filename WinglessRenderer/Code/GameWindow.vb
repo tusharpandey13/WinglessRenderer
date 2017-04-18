@@ -27,7 +27,7 @@ Friend NotInheritable Class GameWindow
 
         Dim m As New Model With {.AntiAliased = 0}
         
-        m.Add(New Rectangle(0, 0, 100, 100), Color.Yellow
+        m.Add(New Rectangle(0, 0, 100, 100), Color.Yellow)
         m.Add(New CubicBezier(New Point(40, 200), New Point(40, 100 + 4 / 3 * Math.Tan(Math.PI / 2000)), New Point(140 - 4 / 3 * Math.Tan(Math.PI / 2000), 200), New Point(140, 100)), Color.Black)
         m.Add(New Ellipse(400, 300, 100, 100), Color.Black)
 
